@@ -110,54 +110,56 @@ const results = [
   };
 
   // ---------- 5. CONNECTION + BASE CHAIN
-  const connectWallet = async () => {
-    // PROTECTION SSR
-    if (!isClient || typeof window.ethereum === 'undefined') {
-      alert('Установи MetaMask, братан!');
-      return;
-    }
+ const connectWallet = async () => {
+  // ЗАЩИТА ОТ SSR — ТОЛЬКО ЭТО
+  if (typeof window === 'undefined') return;
 
+  // Теперь TS знает: мы в браузере
+  if (!window.ethereum) {
+    alert('Установи MetaMask, братан!');
+    return;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+    setAccount(accounts[0]);
+
+    // Переключаем на Base
     try {
-      // GET ACCOUNTS
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x2105' }],
       });
-      setAccount(accounts[0]);
-
-      // SWITH BASE
-      try {
+    } catch (switchErr: any) {
+      if (switchErr.code === 4902) {
         await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x2105' }], // 8453
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '0x2105',
+            chainName: 'Base',
+            nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://mainnet.base.org'],
+            blockExplorerUrls: ['https://basescan.org'],
+          }],
         });
-      } catch (switchErr: any) {
-        if (switchErr.code === 4902) {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: '0x2105',
-                chainName: 'Base',
-                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                rpcUrls: ['https://mainnet.base.org'],
-                blockExplorerUrls: ['https://basescan.org'],
-              },
-            ],
-          });
-        } else {
-          throw switchErr;
-        }
       }
-    } catch (err: any) {
-      console.error(err);
-      alert('Не подключился: ' + (err.message || err));
     }
-  };
+  } catch (err: any) {
+    alert('Ошибка: ' + (err.message || err));
+  }
+};
 
   // ---------- 6. MINT NFT FUNCTION ----------
 const mintNFT = async () => {
   setMinting(true);
-
+ // ЗАЩИТА ОТ SSR
+  if (typeof window === 'undefined' || !window.ethereum) {
+    alert('MetaMask не подключён!');
+    setMinting(false);
+    return;
+  }
   const result = results.find(r => score >= r.min) ?? results[3];
   const contractAddress = result.contract;
 
