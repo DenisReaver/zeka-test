@@ -110,49 +110,52 @@ const results = [
   };
 
   // ---------- 5. CONNECTION + BASE CHAIN
-  const connectWallet = async () => {
-    // PROTECTION SSR
-    if (!isClient || typeof window.ethereum === 'undefined') {
-      alert('Установи MetaMask, братан!');
+const connectWallet = async () => {
+  // ЗАЩИТА ОТ SSR
+  if (typeof window === 'undefined') return;
+
+  // Проверка MetaMask
+  if (!window.ethereum) {
+    alert('Установи MetaMask, братан!');
+    return;
+  }
+
+  try {
+    const accounts = await (window.ethereum as any).request({
+      method: 'eth_requestAccounts',
+    });
+
+    if (!accounts?.length) {
+      alert('Аккаунт не найден!');
       return;
     }
 
-    try {
-      // GET ACCOUNTS
-      const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      setAccount(accounts[0]);
+    setAccount(accounts[0]);
 
-      // SWITH BASE
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x2105' }], // 8453
+    // Переключаем на Base
+    try {
+      await (window.ethereum as any).request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x2105' }],
+      });
+    } catch (e: any) {
+      if (e.code === 4902) {
+        await (window.ethereum as any).request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '0x2105',
+            chainName: 'Base',
+            nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://mainnet.base.org'],
+            blockExplorerUrls: ['https://basescan.org'],
+          }],
         });
-      } catch (switchErr: any) {
-        if (switchErr.code === 4902) {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: '0x2105',
-                chainName: 'Base',
-                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                rpcUrls: ['https://mainnet.base.org'],
-                blockExplorerUrls: ['https://basescan.org'],
-              },
-            ],
-          });
-        } else {
-          throw switchErr;
-        }
       }
-    } catch (err: any) {
-      console.error(err);
-      alert('Не подключился: ' + (err.message || err));
     }
-  };
+  } catch (err: any) {
+    alert('Ошибка подключения: ' + (err.message || ''));
+  }
+};
 
   // ---------- 6. MINT NFT FUNCTION ----------
 const mintNFT = async () => {
@@ -166,9 +169,14 @@ const mintNFT = async () => {
     setMinting(false);
     return;
   }
+  if (typeof window === 'undefined' || !window.ethereum) {
+  alert('MetaMask не подключён!');
+  setMinting(false);
+  return;
+}
 
   try {
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum as any);
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, MINT_ABI, signer);
 
