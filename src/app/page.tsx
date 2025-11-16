@@ -185,11 +185,11 @@ const mintNFT = async () => {
     try {
       totalSupply = await contract.totalSupply();
     } catch {
-      totalSupply = 0n; 
+      totalSupply = BigInt(0);
     }
 
     // === 2. TOTAL MINT
-    const amountToMint = 1n; // FIX 1
+    const amountToMint = BigInt(1); // FIX 1
 
     // === 3. PRICE MINTING NFT
     const assumedPricePerNFT = ethers.parseEther("0.0002"); // THERE PRICE NFT CORRECT
