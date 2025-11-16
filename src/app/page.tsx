@@ -252,44 +252,57 @@ const mintNFT = async () => {
 
   // ---------- 7. RENDER ----------
   // START
-  if (step === 0) {
+if (step === 0) {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center"
-         style={{backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover'}}>
+    <div 
+      className="min-h-screen bg-black text-white flex flex-col items-center justify-center relative"
+      style={{ backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover' }}
+    >
+      <Image 
+        src="/images/zeki1.jpg" 
+        width={300} 
+        height={300} 
+        alt="Хата" 
+        className="rounded-full mb-8" 
+      />
       
-      <Image src="/images/zeki1.jpg" width={300} height={300} alt="Хата" className="rounded-full mb-8" />
       <h1 className="text-5xl font-bold mb-6">ПРОПИСКА 2025</h1>
       
       <input
         type="text"
         placeholder="Твоё погоняло?"
-        className="bg-gray-900 border border-red-800 p-4 rounded text-xl mb-6"
+        className="bg-gray-900 border border-red-800 p-4 rounded text-xl mb-6 w-full max-w-md"
         onChange={e => setName(e.target.value)}
       />
       
-      <button onClick={() => setStep(1)} className="bg-red-800 hover:bg-red-700 px-10 py-5 rounded text-3xl">
+      <button 
+        onClick={() => setStep(1)} 
+        className="bg-red-800 hover:bg-red-700 px-10 py-5 rounded text-3xl transition"
+      >
         Начать прописку!
       </button>
 
-      {BY}
-      {massonedisson.eth}
+      {/* АВТОР — ВНИЗУ, ПО ЦЕНТРУ */}
       <div className="absolute bottom-6 left-0 right-0 flex justify-center">
         <a
-          href="https://app.ens.domains/massonedisson.eth"
+          href="https://farcaster.xyz/massonedisson.eth"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 text-sm hover:text-white transition flex items-center gap-1"
         >
           by 
           <span className="font-bold text-cyan-400">massonedisson.eth</span>
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+          <svg 
+            className="w-3 h-3" 
+            fill="currentColor" 
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+          >
             <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V3h-6z" />
             <path d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H4V7h3a1 1 0 100-2H4z" />
           </svg>
         </a>
       </div>
-      {/* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */}
-
     </div>
   );
 }
