@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
-// ---------- 1. ENS‑имена (БЕЗ https://) ----------
+// ---------- Address Contract create on the mintpad.co
+//4 NFT CREATE PETUX, KOZEL, MUZHIK, BLATNOY
 const CONTRACTS = {
   blatnoy: "0xe757D8ad109A214857023386aCE68f14470363Fc",
   muzhik:  "0xd28b86bF716Ca1c39d7223c88Be43fbCE1eAc031",
@@ -12,7 +13,7 @@ const CONTRACTS = {
   petuh:   "0xf95F4706112cE0BD4e2dEE7f024df2D9f54cd7AC",
 };
 
-// ---------- 2. Правильный ABI 
+// ---------- ABI FINCTION mint NFT INTERACTION with SOLIDITY SMART CONTRACT
 const MINT_ABI = [
   {
     "inputs": [
@@ -31,7 +32,6 @@ const MINT_ABI = [
     "stateMutability": "view",
     "type": "function"
   }
-  // УДАЛЕНО: mintPrice, maxMintAmount
 ];
 
 export default function Home() {
@@ -41,10 +41,9 @@ export default function Home() {
   const [account, setAccount] = useState<string | null>(null);
   const [minting, setMinting] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);   // <-- защита от SSR
+  const [isClient, setIsClient] = useState(false);  
  
 
-  // ---------- 3. Хук, гарантирующий, что мы в браузере ----------
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -110,22 +109,22 @@ const results = [
     setStep(step + 1);
   };
 
-  // ---------- 5. ПОДКЛЮЧЕНИЕ + ПЕРЕКЛЮЧЕНИЕ НА BASE ----------
+  // ---------- 5. CONNECTION + BASE CHAIN
   const connectWallet = async () => {
-    // Защита от SSR
+    // PROTECTION SSR
     if (!isClient || typeof window.ethereum === 'undefined') {
       alert('Установи MetaMask, братан!');
       return;
     }
 
     try {
-      // Запрос аккаунтов
+      // GET ACCOUNTS
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       });
       setAccount(accounts[0]);
 
-      // Переключаем на Base
+      // SWITH BASE
       try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
@@ -155,7 +154,7 @@ const results = [
     }
   };
 
-  // ---------- 6. МИНТ ----------
+  // ---------- 6. MINT NFT FUNCTION ----------
 const mintNFT = async () => {
   setMinting(true);
 
@@ -173,31 +172,31 @@ const mintNFT = async () => {
     const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, MINT_ABI, signer);
 
-    // === 1. Только totalSupply (остальное — нет в контракте) ===
+    // === 1. Только totalSupply 
     let totalSupply;
     try {
       totalSupply = await contract.totalSupply();
     } catch {
-      totalSupply = 0n; // если и этого нет
+      totalSupply = 0n; 
     }
 
-    // === 2. Количество для минта ===
-    const amountToMint = 1n; // фиксировано 1
+    // === 2. TOTAL MINT
+    const amountToMint = 1n; // FIX 1
 
-    // === 3. Цена — НЕИЗВЕСТНА → пробуем с 0.001 ETH (или 0) ===
-    const assumedPricePerNFT = ethers.parseEther("0.0002"); // подправь, если знаешь
+    // === 3. PRICE MINTING NFT
+    const assumedPricePerNFT = ethers.parseEther("0.0002"); // THERE PRICE NFT CORRECT
     const totalCost = assumedPricePerNFT * amountToMint;
 
-    // === 4. Проверка баланса ===
+    // === 4. CHECK BALANCE $ETH
     const balance = await provider.getBalance(account!);
-    const gasBuffer = ethers.parseEther("0.00001"); // 0.01 ETH на газ
+    const gasBuffer = ethers.parseEther("0.00001"); // GET PRICE
     if (balance < totalCost + gasBuffer) {
       alert(`Недостаточно ETH! Нужно: ${(Number(totalCost)/1e18).toFixed(6)} + газ`);
       setMinting(false);
       return;
     }
 
-    // === 5. Affiliate (можно 0x0) ===
+    // === 5. Affiliate 
     const affiliate = "0x0000000000000000000000000000000000000000";
 
     // === 6. МИНТ ===
@@ -243,8 +242,8 @@ const mintNFT = async () => {
   }
 };
 
-  // ---------- 7. РЕНДЕР ----------
-  // Старт
+  // ---------- 7. RENDER ----------
+  // START
   if (step === 0) {
     return (
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center"
@@ -264,7 +263,7 @@ const mintNFT = async () => {
     );
   }
 
-  // Финал
+  // FINAL STEP
   if (step > questions.length) {
     const result = results.find(r => score >= r.min) ?? results[3];
     return (
@@ -303,7 +302,7 @@ const mintNFT = async () => {
     );
   }
 
-  // Вопросы
+  // QUESTION
   const q = questions[step - 1];
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8"
