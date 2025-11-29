@@ -49,18 +49,18 @@ export default function Home() {
   }, []);
 
     const questions = [
-    { q: 'Вечер в хату, арестанты! Как звать?', img: '/images/zeki1.jpg', options: ['Вечер в хату, мужики! Зовите [имя]', 'Чё пристали?', 'Отвалите!'], correct: [0] },
-    { q: 'Поделись чаем из передачки?', img: '/images/chai.jpg', options: ['Конечно, мужики, держите!', 'Нет, это моё!', 'Возьму чужой'], correct: [0] },
-    { q: 'Сядешь на шконку к петуху?', img: '/images/shkonka.jpg', options: ['Не сяду, западло!', 'Сяду, нормально', 'Лучше на парашу'], correct: [0] },
-    { q: 'Играешь в карты? Не жульничаешь?', img: '/images/karti.jpg', options: ['Играю по-честному', 'Жульничаю иногда', 'Не играю, стучу'], correct: [0] },
-    { q: 'Стучать будешь администрации?', img: '/images/dubak.jpg', options: ['Никогда, сука не стучит!', 'Если выгодно', 'Да, расскажу всё'], correct: [0] },
-    { q: 'Ворвать у своих будешь?', img: '/images/krys.jpg', options: ['Никогда, крыса - не человек', 'Иногда', 'Да, если не спалят'], correct: [0] },
-    { q: 'Как поприветствуешь смотрящего?', img: '/images/smotryashiy.jpg', options: ['Здорово, авторитет!', 'Привет, братан', 'Молча пройду'], correct: [0] },
-    { q: 'Делить общий котёл будешь честно?', img: '/images/kotel.jpg', options: ['По понятиям, всем поровну', 'Себе больше', 'Не буду делить'], correct: [0] },
-    { q: 'За косяк ответишь?', img: '/images/kozyr.jpg', options: ['Да, по-мужски', 'Свалю на другого', 'Сбегу'], correct: [0] },
-    { q: 'Татуировку набьёшь правильную?', img: '/images/tatu.jpg', options: ['Только по масти', 'Любую', 'Звёзды на плечах без права'], correct: [0] },
-    { q: 'Помогать слабым будешь?', img: '/images/slabiy.jpg', options: ['Только достойным', 'Всем', 'Топтать слабых'], correct: [0] },
-    { q: 'Финальный вопрос: Ты за понятия?', img: '/images/ponyatiya.jpg', options: ['Живу по понятиям!', 'Иногда', 'Мне пох'], correct: [0] },
+    { q: 'We welcome you. What is your name?', img: '/images/zeki1.jpg', options: ['Evening in the hut! My name is [имя]', 'Why are you asking such questions?', 'fuck you'], correct: [0] },
+    { q: 'Would you share the tea from the parcel?', img: '/images/chai.jpg', options: ['Of course, guys, Im not sorry about that.', 'No, its mine.', 'Are you roosters attacking, this is my tea!'], correct: [0] },
+    { q: 'Are you going to sit next to the rooster?', img: '/images/shkonka.jpg', options: ['I wont sit down!', 'I sit next to the rooster, he didnt hurt me', 'Id rather sit by the toilet'], correct: [0] },
+    { q: 'Do you play cards? Arent you cheating?', img: '/images/karti.jpg', options: ['Im playing a fair game', 'If the kingpin orders it, Il cheat.', 'I will inform the administration.'], correct: [0] },
+    { q: 'Will you report to the administration?', img: '/images/dubak.jpg', options: ['Never, this is not the norm!', 'if it is profitable', 'Il tell the administration everything, I want a good life.'], correct: [0] },
+    { q: 'Will you steal from your own neighbor?', img: '/images/krys.jpg', options: ['Never, a rat is not a human being', 'Sometimes, if I dont have enough money', 'Yes, I can knock out anyone here.'], correct: [0] },
+    { q: 'How do you meet with representatives of thieves in law in prison?', img: '/images/smotryashiy.jpg', options: ['Hello, authority!', 'Hey, bro', 'Go to hell, and Ill keep going.'], correct: [0] },
+    { q: 'Will you honestly share a common pot?', img: '/images/kotel.jpg', options: ['According to the concepts, everyone is equal', 'Ill take more for myself', 'I wont share it.'], correct: [0] },
+    { q: 'Will you answer for the joint?', img: '/images/kozyr.jpg', options: ['Yes, as a man', 'Ill blame someone else for this.', 'Im going to run away from here.'], correct: [0] },
+    { q: 'Can you get the right tattoo?', img: '/images/tatu.jpg', options: ['Only by suit', 'I dont care what kind of tattoo it is.', 'Stars on shoulders without a right'], correct: [0] },
+    { q: 'Will you help the weak?', img: '/images/slabiy.jpg', options: ['Only the worthy ones', 'I will help everyone.', 'Ill kill the weak one.'], correct: [0] },
+    { q: 'The final question: Are you a proponent of thieves concepts?', img: '/images/ponyatiya.jpg', options: ['Of course!', 'Yes and no', 'I dont give a shit about your thieving laws.'], correct: [0] },
   ];
 
  // const results = [
@@ -73,33 +73,33 @@ export default function Home() {
 const results = [
   { 
     min: 10, 
-    title: 'БЛАТНОЙ! Авторитет в хате!', 
+    title: 'THE BANDIT! Authority in the house!', 
     img: '/images/blatniy.jpg', 
-    text: 'Смотрящий жмёт руку.', 
+    text: 'The kingpin shakes hands', 
     key: 'blatnoy',
     contract: CONTRACTS.blatnoy  // ← ДОБАВИЛ
   },
   { 
     min: 7,  
-    title: 'МУЖИК! Нормальный арестант',     
+    title: 'A man! An ordinary prisoner',     
     img: '/images/muzhik.jpg',  
-    text: 'Уважают.', 
+    text: 'Respect', 
     key: 'muzhik',
     contract: CONTRACTS.muzhik
   },
   { 
     min: 4,  
-    title: 'ШЕРСТЬ / КОЗЁЛ',                 
+    title: 'WOOL/GOAT',                 
     img: '/images/kozel.jpg',   
-    text: 'Западло.', 
+    text: 'shamefully', 
     key: 'kozyol',
     contract: CONTRACTS.kozyol
   },
   { 
     min: 0,  
-    title: 'ПЕТУХ! Опущенный',               
+    title: 'THE ROOSTER!',               
     img: '/images/petuh.jpg',   
-    text: 'У параши место...', 
+    text: 'Your place is by the toilet', 
     key: 'petuh',
     contract: CONTRACTS.petuh
   },
@@ -116,7 +116,7 @@ const connectWallet = async () => {
 
   // Проверка MetaMask
   if (!window.ethereum) {
-    alert('Установи MetaMask, братан!');
+    alert('Install MetaMask, bro!');
     return;
   }
 
@@ -126,7 +126,7 @@ const connectWallet = async () => {
     });
 
     if (!accounts?.length) {
-      alert('Аккаунт не найден!');
+      alert('The account was not found!');
       return;
     }
 
@@ -153,7 +153,7 @@ const connectWallet = async () => {
       }
     }
   } catch (err: any) {
-    alert('Ошибка подключения: ' + (err.message || ''));
+    alert('Connection error: ' + (err.message || ''));
   }
 };
 
@@ -165,12 +165,12 @@ const mintNFT = async () => {
   const contractAddress = result.contract;
 
   if (!ethers.isAddress(contractAddress)) {
-    alert('Неверный адрес контракта!');
+    alert('Incorrect contract address!');
     setMinting(false);
     return;
   }
   if (typeof window === 'undefined' || !window.ethereum) {
-  alert('MetaMask не подключён!');
+  alert('MetaMask is not connected!');
   setMinting(false);
   return;
 }
@@ -241,9 +241,9 @@ const mintNFT = async () => {
     if (msg.includes("insufficient funds")) {
       alert("Недостаточно ETH!");
     } else if (msg.includes("reverted")) {
-      alert("Транзакция отклонена. Возможно, неправильная цена или лимит.");
+      alert("The transaction was rejected. It is possible that the price or limit is incorrect.");
     } else {
-      alert(`Ошибка: ${msg}`);
+      alert(`Error: ${msg}`);
     }
   } finally {
     setMinting(false);
@@ -266,11 +266,11 @@ if (step === 0) {
         className="rounded-full mb-8" 
       />
       
-      <h1 className="text-5xl font-bold mb-6">ПРОПИСКА 2025</h1>
+      <h1 className="text-5xl font-bold mb-6">REGISTRATION FORM 2025</h1>
       
       <input
         type="text"
-        placeholder="Твоё погоняло?"
+        placeholder="What's your nickname?"
         className="bg-gray-900 border border-red-800 p-4 rounded text-xl mb-6 w-full max-w-md"
         onChange={e => setName(e.target.value)}
       />
@@ -279,7 +279,7 @@ if (step === 0) {
         onClick={() => setStep(1)} 
         className="bg-red-800 hover:bg-red-700 px-10 py-5 rounded text-3xl transition"
       >
-        Начать прописку!
+        Start registration!
       </button>
 
       {/* АВТОР — ВНИЗУ, ПО ЦЕНТРУ */}
@@ -314,7 +314,7 @@ if (step === 0) {
       <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8"
            style={{backgroundImage: 'url(/images/background.jpg)', backgroundSize: 'cover'}}>
         <Image src={result.img} width={450} height={450} alt="Результат" className="rounded-full mb-8" />
-        <h1 className="text-6xl font-bold mb-4">{name || 'Братан'}, ТЫ — {result.title}</h1>
+        <h1 className="text-6xl font-bold mb-4">{name || 'BROTHER'}, YOU — {result.title}</h1>
         <p className="text-2xl mb-8">{result.text} (Очки: {score}/12)</p>
 
         {!account ? (
@@ -322,7 +322,7 @@ if (step === 0) {
             onClick={connectWallet}
             className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 px-12 py-6 rounded text-3xl font-bold shadow-lg transform hover:scale-105 transition"
           >
-            ПОДКЛЮЧИТЬ METAMASK НА BASE
+            CONNECT METAMASK TO BASE
           </button>
         ) : (
           <button
@@ -330,15 +330,15 @@ if (step === 0) {
             disabled={minting}
             className="bg-green-600 hover:bg-green-500 px-14 py-7 rounded text-4xl font-bold disabled:opacity-50 shadow-2xl transform hover:scale-105 transition"
           >
-            {minting ? 'МИНТИМ...' : 'ЗАМИНТИТЬ NFT НА BASE'}
+            {minting ? 'MINTING...' : 'MINT NFT ON BASE'}
           </button>
         )}
 
         {txHash && (
           <p className="mt-8 text-cyan-400 text-xl">
-            ГОТОВО! NFT В КОШЕЛЬКЕ<br />
+            READY! NFT IN WALLET<br />
             <a href={`https://basescan.org/tx/${txHash}`} target="_blank" rel="noreferrer" className="underline">
-              Посмотреть транзакцию
+              View the transaction
             </a>
           </p>
         )}
@@ -364,7 +364,7 @@ if (step === 0) {
           </button>
         ))}
       </div>
-      <p className="mt-10 text-2xl">Вопрос {step}/12 | Очки: {score}</p>
+      <p className="mt-10 text-2xl">Question {step}/12 | Glasses: {score}</p>
     </div>
   );
 }
