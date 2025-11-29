@@ -266,7 +266,7 @@ if (step === 0) {
         className="rounded-full mb-8" 
       />
       
-      <h1 className="text-5xl font-bold mb-6">REGISTRATION FORM 2025</h1>
+      <h1 className="text-5xl font-bold mb-6">Start testing prisoners!</h1>
       
       <input
         type="text"
